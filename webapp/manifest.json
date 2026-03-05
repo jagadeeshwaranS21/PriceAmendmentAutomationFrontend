@@ -1,0 +1,135 @@
+{
+  "_version": "1.82.0",
+  "sap.app": {
+    "id": "priceamendmentautomation",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.20.4",
+      "toolsId": "8fe626fb-bdbd-4e42-a4b7-b1b675f35116"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/odata/v4/Price-automation/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/mainService/metadata.xml",
+          "odataVersion": "4.01"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "PriceAutomation-PriceAutomation": {
+          "semanticObject": "PriceAutomation",
+          "action": "PriceAutomation",
+          "title": "{{PriceAutomation-PriceAutomation.flpTitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": false,
+    "dependencies": {
+      "minUI5Version": "1.145.0",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "priceamendmentautomation.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "controlAggregation": "pages",
+        "controlId": "app",
+        "transition": "slide",
+        "type": "View",
+        "viewType": "XML",
+        "path": "priceamendmentautomation.view",
+        "async": true,
+        "viewPath": "priceamendmentautomation.view"
+      },
+      "routes": [
+        {
+          "name": "RoutePriceAutomation",
+          "pattern": ":?query:",
+          "target": [
+            "TargetPriceAutomation"
+          ]
+        }
+      ],
+      "targets": {
+        "TargetPriceAutomation": {
+          "id": "PriceAutomation",
+          "name": "PriceAutomation"
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "priceamendmentautomation.view.App",
+      "type": "XML",
+      "id": "App",
+      "async": true
+    }
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "priceamendmentautomation"
+  }
+}
