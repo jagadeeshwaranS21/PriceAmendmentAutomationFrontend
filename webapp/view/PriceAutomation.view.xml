@@ -5,233 +5,364 @@
     xmlns:f="sap.ui.layout.form"
     xmlns:t="sap.ui.table"
     xmlns:core="sap.ui.core"
-    displayBlock="true">
-
-    <Page title="Raw Material Price Revision" showNavButton="false">
-
+    displayBlock="true"
+>
+    <Page
+        title="Raw Material Price Revision"
+        showNavButton="false"
+        backgroundDesign="Solid"
+    >
         <customHeader>
-            <Bar>
+            <Bar design="Header">
                 <contentLeft>
-                    <Title text="Raw Material Price Revision"/>
+                    <Title
+                        text="Raw Material Price Revision"
+                        level="H4"
+                    />
                 </contentLeft>
                 <contentRight>
-                    <Button text="Reset" type="Transparent" press=".onReset"/>
-                    <Button text="Save" type="Emphasized" icon="sap-icon://save" press=".onSave"/>
+                    <Button
+                        text="Reset"
+                        type="Transparent"
+                        press=".onReset"
+                    />
+                    <Button
+                        text="Save"
+                        type="Emphasized"
+                        icon="sap-icon://save"
+                        press=".onSave"
+                    />
                 </contentRight>
             </Bar>
         </customHeader>
 
         <content>
-            <VBox class="sapUiMediumMargin">
-
-                <!-- Vendor Header -->
-                <Panel headerText="Vendor Details" expandable="false" class="sapUiSmallMarginBottom">
-                    <f:SimpleForm
-                        editable="true"
-                        layout="ResponsiveGridLayout"
-                        labelSpanXL="3" labelSpanL="3" labelSpanM="4" labelSpanS="12"
-                        columnsXL="3" columnsL="3" columnsM="2"
-                        class="sapUiSmallMargin">
-                        <f:content>
-
-                            <Label text="V Code" required="true"/>
-                            <Select id="selVendorCode" selectedKey="{view>/selectedVendorCode}" change=".onVendorChange">
+            <VBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginTopBottom">
+                <!-- ═══ SINGLE PANEL ═══════════════════════════════════════════ -->
+                <Panel
+                    expandable="false"
+                    class="sapUiNoContentPadding"
+                >
+                    <headerToolbar>
+                        <OverflowToolbar
+                            style="Clear"
+                            height="2.5rem"
+                        >
+                            <ToolbarSeparator />
+                            <Label
+                                text="V Code"
+                                design="Bold"
+                                class="sapUiTinyMarginEnd"
+                            />
+                            <Select
+                                id="selVendorCode"
+                                selectedKey="{view>/selectedVendorCode}"
+                                change=".onVendorChange"
+                                width="130px"
+                            >
                                 <items>
-                                    <core:Item key="" text="-- Select --"/>
+                                    <core:Item
+                                        key=""
+                                        text="-- Select --"
+                                    />
                                 </items>
                             </Select>
-
-                            <Label text="Commodity" required="true"/>
-                            <Select id="selCommodity" selectedKey="{view>/selectedCommodity}" change=".onCommodityChange">
+                            <ToolbarSeparator />
+                            <Label
+                                text="Commodity"
+                                design="Bold"
+                                class="sapUiTinyMarginEnd"
+                            />
+                            <Select
+                                id="selCommodity"
+                                selectedKey="{view>/selectedCommodity}"
+                                change=".onCommodityChange"
+                                width="150px"
+                            >
                                 <items>
-                                    <core:Item key="" text="-- Select --"/>
+                                    <core:Item
+                                        key=""
+                                        text="-- Select --"
+                                    />
                                 </items>
                             </Select>
-
-                            <Label text="Effective Date"/>
-                            <Text text="{path: 'view>/vendorData/effectiveDate', formatter: '.formatter.formatDate'}"/>
-
-                        </f:content>
-                    </f:SimpleForm>
-                </Panel>
-
-                <!-- Raw Material Prices Table -->
-                <Panel headerText="Raw Material Rates" expandable="false" class="sapUiSmallMarginBottom">
-                    <!-- <headerToolbar>
-                        <OverflowToolbar>
-                            <Title text="Raw Material Rates"/>
-                            <ToolbarSpacer/>
-                            <Button text="Add Row" icon="sap-icon://add" type="Transparent" press=".onAddRmRow"/>
-                        </OverflowToolbar>
-                    </headerToolbar> -->
-                    <t:Table
-                        id="rmTable"
-                        rows="{view>/rmPrices}"
-                        selectionMode="None"
-                        alternateRowColors="true">
-
-                        <t:columns>
-                            <t:Column width="110px">
-                                <Label text="RM Code"/>
-                                <t:template><Text text="{view>rmCode}"/></t:template>
-                            </t:Column>
-
-                            <t:Column width="140px">
-                                <Label text="RM"/>
-                                <t:template><Text text="{view>rmName}"/></t:template>
-                            </t:Column>
-
-                            <t:Column width="140px" hAlign="End">
-                                <Label text="Current RM Rate"/>
-                                <t:template>
-                                    <ObjectNumber
-                                        number="{path: 'view>currentRmRate', formatter: '.formatter.formatDecimal'}"
-                                        state="None"/>
-                                </t:template>
-                            </t:Column>
-
-                            <!-- EDITABLE: New RM Rate -->
-                            <t:Column width="140px" hAlign="End">
-                                <Label text="New RM Rate"/>
-                                <t:template>
-                                    <Input
-                                        value="{view>newRmRate}"
-                                        type="Number"
-                                        valueLiveUpdate="true"
-                                        liveChange=".onRmRateChange"
-                                        class="rmpEditableInput"/>
-                                </t:template>
-                            </t:Column>
-
-                            <t:Column width="140px" hAlign="End">
-                                <Label text="Δ Content Rate"/>
-                                <t:template>
-                                    <ObjectNumber
-                                        number="{path: 'view>deltaContentRate', formatter: '.formatter.formatDecimal'}"
-                                        state="{path: 'view>deltaContentRate', formatter: '.formatter.formatDeltaState'}"/>
-                                </t:template>
-                            </t:Column>
-
-                            <t:Column width="150px" hAlign="End">
-                                <Label text="Current Scrap Rate"/>
-                                <t:template>
-                                    <ObjectNumber
-                                        number="{path: 'view>currentScrapRate', formatter: '.formatter.formatDecimal'}"
-                                        state="None"/>
-                                </t:template>
-                            </t:Column>
-
-                            <!-- EDITABLE: New Scrap Rate -->
-                            <t:Column width="140px" hAlign="End">
-                                <Label text="New Scrap Rate"/>
-                                <t:template>
-                                    <Input
-                                        value="{view>newScrapRate}"
-                                        type="Number"
-                                        valueLiveUpdate="true"
-                                        liveChange=".onScrapRateChange"
-                                        class="rmpEditableInput"/>
-                                </t:template>
-                            </t:Column>
-
-                            <t:Column width="150px" hAlign="End">
-                                <Label text="Δ Content Rate (Scrap)"/>
-                                <t:template>
-                                    <ObjectNumber
-                                        number="{path: 'view>deltaScrapRate', formatter: '.formatter.formatDecimal'}"
-                                        state="{path: 'view>deltaScrapRate', formatter: '.formatter.formatDeltaState'}"/>
-                                </t:template>
-                            </t:Column>
-
-                            <t:Column width="170px" hAlign="End">
-                                <Label text="Overall RM Impact Value"/>
-                                <t:template>
-                                    <ObjectNumber
-                                        number="{path: 'view>overallRmImpact', formatter: '.formatter.formatDecimal'}"
-                                        state="{path: 'view>overallRmImpact', formatter: '.formatter.formatDeltaState'}"
-                                        emphasized="true"/>
-                                </t:template>
-                            </t:Column>
-
-                            <t:Column width="60px">
-                                <Label text=""/>
-                                <t:template>
-                                    <Button icon="sap-icon://delete" type="Transparent" press=".onDeleteRmRow"/>
-                                </t:template>
-                            </t:Column>
-                        </t:columns>
-                    </t:Table>
-                </Panel>
-
-                <!-- Currency Details -->
-                <Panel headerText="Currency Details" expandable="false" class="sapUiSmallMarginBottom">
-                    <f:SimpleForm
-                        editable="true"
-                        layout="ResponsiveGridLayout"
-                        labelSpanXL="2" labelSpanL="2" labelSpanM="4" labelSpanS="12"
-                        columnsXL="4" columnsL="4" columnsM="2"
-                        class="sapUiSmallMargin">
-                        <f:content>
-
-                            <Label text="Currency Type"/>
-                            <Text text="{view>/vendorData/currency_code}"/>
-
-                            <Label text="Current Rate"/>
+                            <ToolbarSeparator />
+                            <Label
+                                text="Effective Date:"
+                                design="Bold"
+                                class="sapUiTinyMarginEnd"
+                            />
+                            <Text
+                                text="{path: 'view>/vendorData/effectiveDate', formatter: '.formatter.formatDate'}"
+                            />
+                            <ToolbarSeparator />
+                            <Label
+                                text="Currency:"
+                                design="Bold"
+                                class="sapUiTinyMarginEnd"
+                            />
+                            <Text text="{view>/vendorData/currency_code}" />
+                            <ToolbarSeparator />
+                            <Label
+                                text="Curr. Rate:"
+                                design="Bold"
+                                class="sapUiTinyMarginEnd"
+                            />
                             <ObjectNumber
                                 number="{path: 'view>/currency/currentRate', formatter: '.formatter.formatDecimal'}"
-                                state="None"/>
-
-                            <!-- EDITABLE: New Currency Rate -->
-                            <Label text="New Rate"/>
+                                state="None"
+                                class="sapUiTinyMarginEnd"
+                            />
+                            <Label
+                                text="New Rate:"
+                                design="Bold"
+                                class="sapUiTinyMarginEnd"
+                            />
                             <Input
                                 id="inputNewCurrRate"
                                 value="{view>/currency/newRate}"
                                 type="Number"
                                 valueLiveUpdate="true"
                                 liveChange=".onCurrencyChange"
-                                class="rmpEditableInput"/>
+                                width="80px"
+                                class="rmpEditableInput"
+                            />
 
-                            <Label text="Δ Rate"/>
                             <ObjectNumber
                                 number="{path: 'view>/currency/deltaRate', formatter: '.formatter.formatDecimal'}"
-                                state="{path: 'view>/currency/deltaRate', formatter: '.formatter.formatDeltaState'}"/>
+                                state="{path: 'view>/currency/deltaRate', formatter: '.formatter.formatDeltaState'}"
+                            />
+                            <ToolbarSpacer />
+                        </OverflowToolbar>
+                    </headerToolbar>
 
-                        </f:content>
-                    </f:SimpleForm>
-                </Panel>
+                    <t:Table
+                        id="rmTable"
+                        rows="{view>/rmPrices}"
+                        selectionMode="None"
+                        alternateRowColors="true"
+                        columnHeaderHeight="32"
+                    >
+                        <t:extension>
+                            <OverflowToolbar
+                                style="Clear"
+                                height="2rem"
+                            >
+                                <Title
+                                    text="Raw Material Rates"
+                                    level="H6"
+                                />
+                                <ToolbarSpacer />
+                            </OverflowToolbar>
+                        </t:extension>
 
-                <!-- Charges -->
-                <Panel headerText="Charges &amp; Overheads" expandable="false" class="sapUiSmallMarginBottom">
+                        <t:columns>
+                            <t:Column width="100%">
+                                <Label text="RM Code" />
+                                <t:template>
+                                    <Text
+                                        text="{view>rmCode}"
+                                        wrapping="false"
+                                    />
+                                </t:template>
+                            </t:Column>
+
+                            <t:Column width="130px">
+                                <Label text="RM" />
+                                <t:template>
+                                    <Text
+                                        text="{view>rmName}"
+                                        wrapping="false"
+                                    />
+                                </t:template>
+                            </t:Column>
+
+                            <t:Column
+                                width="120px"
+                                hAlign="End"
+                            >
+                                <Label text="Current RM Rate" />
+                                <t:template>
+                                    <ObjectNumber
+                                        number="{path: 'view>currentRmRate', formatter: '.formatter.formatDecimal'}"
+                                        state="None"
+                                    />
+                                </t:template>
+                            </t:Column>
+
+                            <t:Column
+                                width="120px"
+                                hAlign="End"
+                            >
+                                <Label text="New RM Rate" />
+                                <t:template>
+                                    <Input
+                                        value="{view>newRmRate}"
+                                        type="Number"
+                                        valueLiveUpdate="true"
+                                        liveChange=".onRmRateChange"
+                                        class="rmpEditableInput"
+                                        width="100px"
+                                    />
+                                </t:template>
+                            </t:Column>
+
+                            <t:Column
+                                width="110px"
+                                hAlign="End"
+                            >
+                                <Label text="Content" />
+                                <t:template>
+                                    <ObjectNumber
+                                        number="{path: 'view>deltaContentRate', formatter: '.formatter.formatDecimal'}"
+                                        state="{path: 'view>deltaContentRate', formatter: '.formatter.formatDeltaState'}"
+                                    />
+                                </t:template>
+                            </t:Column>
+
+                            <t:Column
+                                width="130px"
+                                hAlign="End"
+                            >
+                                <Label text="Current Scrap Rate" />
+                                <t:template>
+                                    <ObjectNumber
+                                        number="{path: 'view>currentScrapRate', formatter: '.formatter.formatDecimal'}"
+                                        state="None"
+                                    />
+                                </t:template>
+                            </t:Column>
+
+                            <t:Column
+                                width="120px"
+                                hAlign="End"
+                            >
+                                <Label text="New Scrap Rate" />
+                                <t:template>
+                                    <Input
+                                        value="{view>newScrapRate}"
+                                        type="Number"
+                                        valueLiveUpdate="true"
+                                        liveChange=".onScrapRateChange"
+                                        class="rmpEditableInput"
+                                        width="100px"
+                                    />
+                                </t:template>
+                            </t:Column>
+
+                            <t:Column
+                                width="120px"
+                                hAlign="End"
+                            >
+                                <Label text="Scrap" />
+                                <t:template>
+                                    <ObjectNumber
+                                        number="{path: 'view>deltaScrapRate', formatter: '.formatter.formatDecimal'}"
+                                        state="{path: 'view>deltaScrapRate', formatter: '.formatter.formatDeltaState'}"
+                                    />
+                                </t:template>
+                            </t:Column>
+
+                            <t:Column
+                                width="150px"
+                                hAlign="End"
+                            >
+                                <Label text="Overall RM Impact" />
+                                <t:template>
+                                    <ObjectNumber
+                                        number="{path: 'view>overallRmImpact', formatter: '.formatter.formatDecimal'}"
+                                        state="{path: 'view>overallRmImpact', formatter: '.formatter.formatDeltaState'}"
+                                        emphasized="true"
+                                    />
+                                </t:template>
+                            </t:Column>
+                        </t:columns>
+                    </t:Table>
+
+                    <!-- ── Charges Row ─────────────────────────────────────── -->
+                    <OverflowToolbar
+                        style="Clear"
+                        height="2rem"
+                        class="sapUiTinyMarginTop"
+                    >
+                        <Title
+                            text="Charges &amp; Overheads"
+                            level="H6"
+                        />
+                    </OverflowToolbar>
+
                     <Table
                         items="{view>/charges}"
-                        showSeparators="Inner">
+                        showSeparators="Inner"
+                        backgroundDesign="Transparent"
+                        fixedLayout="false"
+                        class="sapUiSizeCompact"
+                    >
                         <columns>
-                            <Column><Label text="Charge"/></Column>
-                            <Column hAlign="End"><Label text="Rate"/></Column>
-                            <Column><Label text="Apply"/></Column>
-                            <Column><Label text=""/></Column>
+                            <Column width="120px">
+                                <Label text="Charge" />
+                            </Column>
+                            <Column
+                                width="80px"
+                                hAlign="End"
+                            >
+                                <Label text="Rate" />
+                            </Column>
+                            <Column width="100px">
+                                <Label text="Apply" />
+                            </Column>
+                            <Column>
+                                <Label text="Note" />
+                            </Column>
                         </columns>
                         <items>
                             <ColumnListItem>
                                 <cells>
-                                    <Text text="{view>name}"/>
+                                    <Text text="{view>name}" />
                                     <ObjectNumber
                                         number="{path: 'view>rate', formatter: '.formatter.formatRate'}"
-                                        unit="%"/>
-                                    <!-- EDITABLE: Yes/No dropdown -->
-                                    <Select selectedKey="{view>apply}" class="rmpEditableSelect">
-                                        <core:Item key="Yes" text="Yes"/>
-                                        <core:Item key="No"  text="No"/>
+                                        unit="%"
+                                    />
+                                    <Select
+                                        selectedKey="{view>apply}"
+                                        class="rmpEditableSelect"
+                                        width="90px"
+                                    >
+                                        <core:Item
+                                            key="Yes"
+                                            text="Yes"
+                                        />
+                                        <core:Item
+                                            key="No"
+                                            text="No"
+                                        />
                                     </Select>
-                                    <Text text="Default No" class="sapUiTinyMarginBegin"/>
+                                    <Text text="Default No" />
                                 </cells>
                             </ColumnListItem>
                         </items>
                     </Table>
                 </Panel>
-
+                <!-- ═══ END SINGLE PANEL ══════════════════════════════════════ -->
             </VBox>
         </content>
-    </Page>
 
+        <footer>
+            <Bar design="Footer">
+                <contentRight>
+                    <Button
+                        text="Reset"
+                        type="Transparent"
+                        press=".onReset"
+                    />
+                    <Button
+                        text="Save"
+                        type="Emphasized"
+                        icon="sap-icon://save"
+                        press=".onSave"
+                    />
+                </contentRight>
+            </Bar>
+        </footer>
+    </Page>
 </mvc:View>
