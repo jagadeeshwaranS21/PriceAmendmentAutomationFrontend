@@ -10,7 +10,7 @@
     <Page
         title="Raw Material Price Revision"
         showNavButton="false"
-        backgroundDesign="Solid"
+        backgroundDesign="Transparent"
         showHeader="false"
     >
         <customHeader>
@@ -92,8 +92,13 @@
                                 design="Bold"
                                 class="sapUiTinyMarginEnd"
                             />
-                            <Text
-                                text="{path: 'view>/vendorData/effectiveDate', formatter: '.formatter.formatDate'}"
+                            <DatePicker
+                                id="dpEffectiveDate"
+                                value="{view>/vendorData/effectiveDate}"
+                                valueFormat="yyyy-MM-dd"
+                                displayFormat="dd/MM/yyyy"
+                                width="120px"
+                                class="rmpEditableInput"
                             />
                             <ToolbarSeparator />
                             <Label
@@ -147,6 +152,7 @@
                         alternateRowColors="true"
                         columnHeaderHeight="32"
                         visibleRowCount="5"
+                        showNoData="false"
                     >
                         <t:extension>
                             <OverflowToolbar
@@ -158,6 +164,17 @@
                                     level="H6"
                                 />
                                 <ToolbarSpacer />
+                                <Button
+                                    text="Reset"
+                                    type="Transparent"
+                                    press=".onReset"
+                                />
+                                <Button
+                                    text="Save"
+                                    type="Emphasized"
+                                    icon="sap-icon://save"
+                                    press=".onSave"
+                                />
                             </OverflowToolbar>
                         </t:extension>
 
@@ -347,7 +364,6 @@
                         </items>
                     </Table>
                 </Panel>
-
             </VBox>
         </content>
     </Page>

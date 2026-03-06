@@ -1,4 +1,4 @@
-/* ═══════════════════════════════════════════════════════════════════════════
+/* /* ═══════════════════════════════════════════════════════════════════════════
    RMP · Price Automation · Pixel-Perfect Premium Edition
    Reference: screenshot — clean white card, inline toolbar, blue pills
    ═══════════════════════════════════════════════════════════════════════════ */
@@ -93,15 +93,15 @@
 .sapMBtn .sapMBtnEmphasized {
   background: linear-gradient(180deg, #2b7bff 0%, #1459e0 100%) !important;
   border: none !important;
-  border-radius: var(--r-pill) !important;
+  /* border-radius: var(--r-pill) !important; */
   box-shadow: var(--sh-btn) !important;
   font-family: var(--sans) !important;
   font-size: 14px !important;
   font-weight: 600 !important;
   letter-spacing: -0.01em !important;
   color: #fff !important;
-  height: 36px !important;
-  padding: 0 20px !important;
+  /* height: 36px !important; */
+  /* padding: 10px 10px 10px 10px !important; */
   transition:
     box-shadow var(--dur) var(--ease),
     transform  100ms var(--spring),
@@ -133,13 +133,13 @@
 .sapMBtn .sapMBtnTransparent {
   background: transparent !important;
   border: 1.5px solid var(--border-deep) !important;
-  border-radius: var(--r-pill) !important;
+  /* border-radius: var(--r-pill) !important; */
   font-family: var(--sans) !important;
   font-size: 13.5px !important;
   font-weight: 500 !important;
   color: var(--tx-2) !important;
-  height: 36px !important;
-  padding: 0 16px !important;
+  /* height: 36px !important;
+  padding: 0 16px !important; */
   transition: all var(--dur) var(--ease) !important;
 }
 .sapMBtn .sapMBtnTransparent:hover {
@@ -536,3 +536,19 @@
   background: rgba(26,111,244,0.15);
   color: var(--blue-dark);
 }
+
+#dpEffectiveDate.sapMDP .sapMInputBaseInner {
+  background: var(--b-blue-tint) !important;
+  border: 1.5px solid var(--b-blue-border) !important;
+  border-radius: var(--r-sm) !important;
+  font-family: var(--f-mono) !important;
+  font-size: 12.5px !important;
+  font-weight: 600 !important;
+  color: var(--b-blue) !important;
+  height: 34px !important;
+}
+#dpEffectiveDate.sapMDP.sapMInputFocused .sapMInputBaseInner {
+  border-color: var(--b-blue) !important;
+  box-shadow: var(--sh-focus) !important;
+  background: #fff !important;
+} */

@@ -32,5 +32,12 @@
     "build:mta": "rimraf resources mta_archives && mbt build",
     "undeploy": "cf undeploy priceamendmentautomation --delete-services --delete-service-keys --delete-service-brokers"
   },
-  "sapuxLayer": "CUSTOMER_BASE"
+  "sapuxLayer": "CUSTOMER_BASE",
+  "cds": {
+    "requires": {
+      "destinations": true,
+      "html5-repo": true,
+      "workzone": true
+    }
+  }
 }

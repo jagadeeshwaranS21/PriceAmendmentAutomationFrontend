@@ -110,7 +110,6 @@ sap.ui.define([
 
         _populateViewFromVendor: function (oVendor) {
             const oViewModel = this.getView().getModel("view");
-
             const aRmPrices = (oVendor.rawMaterialPrices || []).map((rm) => {
 
                 const fDeltaContent = parseFloat(
@@ -134,10 +133,11 @@ sap.ui.define([
             });
 
             oViewModel.setProperty("/vendorData", oVendor);
+            oViewModel.setProperty("/vendorData/effectiveDate",new Date().toISOString().split("T")[0]);
             oViewModel.setProperty("/rmPrices", aRmPrices);
 
             const oTable = this.byId("rmTable");
-            oTable.setVisibleRowCount(Math.max(aRmPrices.length, 5));
+            oTable.setVisibleRowCount(Math.max(aRmPrices.length, aRmPrices.length));
 
             const aCharges = oViewModel.getProperty("/charges");
 
@@ -315,6 +315,20 @@ sap.ui.define([
 
             oModel.setProperty("/summary/totalRmDelta", parseFloat(fTotalRmDelta.toFixed(4)));
             oModel.setProperty("/summary/revisedPartPrice", parseFloat((fTotalRmDelta + fCurrDelta).toFixed(4)));
+        }, onEffectiveDateChange: function (oEvent) {
+            const oDP = oEvent.getSource();
+            const bValid = oEvent.getParameter("valid");
+
+            if (!bValid) {
+                oDP.setValueState("Error");
+                oDP.setValueStateText("Please enter a valid date.");
+                return;
+            }
+
+            oDP.setValueState("None");
+            const sDate = oEvent.getParameter("value");
+            this.getView().getModel("view")
+                .setProperty("/vendorData/effectiveDate", sDate);
         }
 
     });
