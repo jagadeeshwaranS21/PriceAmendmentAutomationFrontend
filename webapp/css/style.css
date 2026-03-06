@@ -1,1 +1,538 @@
-/* Enter your custom styles here */
+/* ═══════════════════════════════════════════════════════════════════════════
+   RMP · Price Automation · Pixel-Perfect Premium Edition
+   Reference: screenshot — clean white card, inline toolbar, blue pills
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* ─── Design Tokens ───────────────────────────────────────────────────────── */
+:root {
+  /* Surfaces */
+  --bg:           #f0f2f6;
+  --card:         #ffffff;
+  --row-alt:      #fafbfc;
+  --toolbar-bg:   #f7f8fa;
+
+  /* Borders */
+  --border:       #e4e7ec;
+  --border-deep:  #cdd2db;
+
+  /* Text */
+  --tx-1:         #0f1117;   /* primary */
+  --tx-2:         #4b5565;   /* secondary */
+  --tx-3:         #9aa3b0;   /* muted / labels */
+
+  /* Brand blue */
+  --blue:         #1a6ff4;
+  --blue-dark:    #1458c8;
+  --blue-tint:    #eef4ff;
+  --blue-border:  #c3d9fd;
+  --blue-glow:    rgba(26, 111, 244, 0.18);
+
+  /* Semantic */
+  --red:          #e03131;
+  --green:        #0fa36b;
+  --green-dark:   #0a8a5a;
+
+  /* Type */
+  --sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono: 'JetBrains Mono', 'SF Mono', ui-monospace, monospace;
+
+  /* Geometry */
+  --r-xs:   4px;
+  --r-sm:   7px;
+  --r-md:   11px;
+  --r-lg:   16px;
+  --r-pill: 9999px;
+
+  /* Shadows */
+  --sh-card:  0 1px 3px rgba(0,0,0,0.04),
+              0 6px 24px rgba(0,0,0,0.06),
+              0 0 0 1px rgba(0,0,0,0.045);
+  --sh-input: 0 1px 2px rgba(0,0,0,0.04) inset;
+  --sh-focus: 0 0 0 3px var(--blue-glow);
+  --sh-btn:   0 1px 0 rgba(255,255,255,0.2) inset,
+              0 2px 12px rgba(26,111,244,0.32),
+              0 1px 3px rgba(26,111,244,0.2);
+
+  /* Motion */
+  --ease:   cubic-bezier(0.4, 0, 0.2, 1);
+  --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur:    150ms;
+}
+
+/* ─── Baseline ────────────────────────────────────────────────────────────── */
+* { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+.sapUiBody,
+.sapMPage,
+.sapMPageBgSolid {
+  font-family: var(--sans) !important;
+  background: var(--bg) !important;
+}
+.sapMPage { background: transparent !important; }
+
+/* ─── Page Header Bar ─────────────────────────────────────────────────────── */
+.sapMPageHeader .sapMBar {
+  background: var(--card) !important;
+  border-bottom: 1px solid var(--border) !important;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.04) !important;
+  height: 54px !important;
+}
+
+/* Title */
+.sapMPageHeader .sapMBarLeft .sapMTitle {
+  font-family: var(--sans) !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.025em !important;
+  color: var(--tx-1) !important;
+}
+
+/* ─── SAVE BUTTON — the hero element ─────────────────────────────────────── */
+.sapMBtn .sapMBtnEmphasized {
+  background: linear-gradient(180deg, #2b7bff 0%, #1459e0 100%) !important;
+  border: none !important;
+  border-radius: var(--r-pill) !important;
+  box-shadow: var(--sh-btn) !important;
+  font-family: var(--sans) !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.01em !important;
+  color: #fff !important;
+  height: 36px !important;
+  padding: 0 20px !important;
+  transition:
+    box-shadow var(--dur) var(--ease),
+    transform  100ms var(--spring),
+    background var(--dur) var(--ease) !important;
+  position: relative !important;
+}
+.sapMBtn .sapMBtnEmphasized::after {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  border-radius: var(--r-pill) !important;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.15) inset !important;
+  pointer-events: none !important;
+}
+.sapMBtn .sapMBtnEmphasized:hover {
+  background: linear-gradient(180deg, #3d87ff 0%, #1f62ef 100%) !important;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.2) inset,
+    0 4px 20px rgba(26,111,244,0.45),
+    0 1px 5px rgba(26,111,244,0.3) !important;
+  transform: translateY(-1px) !important;
+}
+.sapMBtn .sapMBtnEmphasized:active {
+  transform: scale(0.96) translateY(0) !important;
+  box-shadow: 0 1px 4px rgba(26,111,244,0.25) !important;
+}
+
+/* Reset button */
+.sapMBtn .sapMBtnTransparent {
+  background: transparent !important;
+  border: 1.5px solid var(--border-deep) !important;
+  border-radius: var(--r-pill) !important;
+  font-family: var(--sans) !important;
+  font-size: 13.5px !important;
+  font-weight: 500 !important;
+  color: var(--tx-2) !important;
+  height: 36px !important;
+  padding: 0 16px !important;
+  transition: all var(--dur) var(--ease) !important;
+}
+.sapMBtn .sapMBtnTransparent:hover {
+  background: var(--toolbar-bg) !important;
+  border-color: #9aa3b0 !important;
+  color: var(--tx-1) !important;
+}
+
+/* ─── Single Panel Card ───────────────────────────────────────────────────── */
+.sapMPanel {
+  background: var(--card) !important;
+  border: none !important;
+  border-radius: var(--r-lg) !important;
+  box-shadow: var(--sh-card) !important;
+  overflow: hidden !important;
+  animation: card-rise 0.35s var(--ease) both;
+}
+
+@keyframes card-rise {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Panel Header Toolbar — inline fields strip ──────────────────────────── */
+.sapMPanel > .sapMPanelHdr,
+.sapMPanel .sapMIBar.sapMTB {
+  background: var(--toolbar-bg) !important;
+  border-bottom: 1px solid var(--border) !important;
+  min-height: 58px !important;
+  padding: 0 20px !important;
+  gap: 0 !important;
+}
+
+/* ALL labels in toolbar — small-caps style */
+.sapMPanel .sapMTB .sapMLabel {
+  font-family: var(--sans) !important;
+  font-size: 9.5px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.1em !important;
+  color: var(--tx-3) !important;
+  white-space: nowrap !important;
+  margin-right: 6px !important;
+}
+
+/* Inline text values (Effective Date, Currency, Current Rate) */
+.sapMPanel .sapMTB .sapMText {
+  font-family: var(--sans) !important;
+  font-size: 13.5px !important;
+  font-weight: 600 !important;
+  color: var(--tx-1) !important;
+  white-space: nowrap !important;
+}
+
+/* Toolbar separators */
+.sapMTBSeparator {
+  background: var(--border) !important;
+  margin: 14px 10px !important;
+  height: 22px !important;
+  width: 1px !important;
+  flex-shrink: 0 !important;
+}
+
+/* Currency delta value (the "3.00" in teal next to new rate) */
+.sapMPanel .sapMTB .sapMObjectNumber {
+  font-family: var(--mono) !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  font-variant-numeric: tabular-nums !important;
+}
+.sapMPanel .sapMTB .sapMObjectNumberText { font-family: var(--mono) !important; }
+.sapMPanel .sapMTB .sapMObjectNumberStatusError   .sapMObjectNumberText { color: var(--red)   !important; }
+.sapMPanel .sapMTB .sapMObjectNumberStatusSuccess .sapMObjectNumberText { color: var(--green) !important; }
+/* Positive delta in teal by default */
+.sapMPanel .sapMTB .sapMObjectNumberStatusNone .sapMObjectNumberText { color: var(--green) !important; }
+
+/* ObjectStatus pill */
+.sapMObjStatus.sapMObjStatusStateInformation.sapMObjStatusInverted {
+  background: var(--blue) !important;
+  border-radius: var(--r-pill) !important;
+  padding: 3px 11px !important;
+  font-family: var(--sans) !important;
+  font-size: 10.5px !important;
+  font-weight: 600 !important;
+  color: #fff !important;
+}
+
+/* ─── V Code / Commodity Selects in toolbar ───────────────────────────────── */
+.sapMPanel .sapMTB .sapMSlt,
+#selVendorCode.sapMSlt,
+#selCommodity.sapMSlt {
+  background: var(--card) !important;
+  border: 1.5px solid var(--border-deep) !important;
+  border-radius: var(--r-sm) !important;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04) !important;
+  height: 34px !important;
+  min-width: 130px !important;
+  transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease) !important;
+}
+.sapMPanel .sapMTB .sapMSlt:hover { border-color: #9aa3b0 !important; }
+.sapMPanel .sapMTB .sapMSlt.sapMSltFocused {
+  border-color: var(--blue) !important;
+  box-shadow: var(--sh-focus) !important;
+}
+.sapMPanel .sapMTB .sapMSlt .sapMSltLabel {
+  font-family: var(--sans) !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: var(--tx-1) !important;
+}
+
+/* ─── Currency New Rate input — inline in toolbar ─────────────────────────── */
+#inputNewCurrRate.sapMInput .sapMInputBaseInner {
+  background: var(--blue-tint) !important;
+  border: 1.5px solid var(--blue-border) !important;
+  border-radius: var(--r-sm) !important;
+  font-family: var(--mono) !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: var(--blue) !important;
+  text-align: right !important;
+  padding: 0 10px !important;
+  height: 34px !important;
+  font-variant-numeric: tabular-nums !important;
+  box-shadow: var(--sh-input) !important;
+  transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease) !important;
+}
+#inputNewCurrRate.sapMInput.sapMInputFocused .sapMInputBaseInner,
+#inputNewCurrRate.sapMInput .sapMInputBaseInner:focus {
+  border-color: var(--blue) !important;
+  box-shadow: var(--sh-focus) !important;
+  background: #fff !important;
+  outline: none !important;
+}
+
+/* ─── RM Table Extension Toolbar ──────────────────────────────────────────── */
+.sapUiTableExt .sapMTB {
+  background: var(--card) !important;
+  border-bottom: 1px solid var(--border) !important;
+  padding: 0 20px !important;
+  min-height: 44px !important;
+}
+.sapUiTableExt .sapMTB .sapMTitle {
+  font-family: var(--sans) !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.1em !important;
+  color: var(--tx-3) !important;
+}
+
+/* ─── RM Rates Table ──────────────────────────────────────────────────────── */
+.sapUiTable {
+  font-family: var(--sans) !important;
+  border: none !important;
+  background: var(--card) !important;
+}
+
+/* Column header strip */
+.sapUiTableColHdrCnt,
+.sapUiTableColHdrTr {
+  background: var(--card) !important;
+  border-bottom: 2px solid var(--border) !important;
+}
+.sapUiTableCol { border-right: none !important; border-bottom: none !important; }
+
+.sapUiTableColCell .sapMLabel,
+.sapUiTableColCell span {
+  font-family: var(--sans) !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  color: var(--tx-3) !important;
+}
+
+/* Rows */
+.sapUiTableTr > td {
+  border-right: none !important;
+  border-bottom: 1px solid var(--border) !important;
+  padding: 8px 16px !important;
+  vertical-align: middle !important;
+  transition: background var(--dur) var(--ease) !important;
+}
+.sapUiTableRowAlternate .sapUiTableTr > td { background: var(--row-alt) !important; }
+.sapUiTableTr:hover > td { background: var(--blue-tint) !important; }
+
+/* RM Code & Name text */
+.sapUiTableTr .sapMText {
+  font-family: var(--sans) !important;
+  font-size: 13.5px !important;
+  font-weight: 400 !important;
+  color: var(--tx-1) !important;
+}
+
+/* Read-only numbers */
+.sapUiTableTr .sapMObjectNumber,
+.sapUiTableTr .sapMObjectNumberText {
+  font-family: var(--mono) !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: var(--tx-1) !important;
+  font-variant-numeric: tabular-nums !important;
+}
+
+/* Delta states — exactly matching screenshot */
+.sapUiTableTr .sapMObjectNumberStatusError   .sapMObjectNumberText {
+  color: var(--red) !important;
+  font-weight: 600 !important;
+}
+.sapUiTableTr .sapMObjectNumberStatusSuccess .sapMObjectNumberText {
+  color: var(--green) !important;
+  font-weight: 700 !important;
+}
+
+/* Overall RM Impact — star column, bold green */
+.sapUiTableTr .sapMObjectNumberEmph .sapMObjectNumberText {
+  font-size: 13.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em !important;
+}
+
+/* ─── Editable Inputs — New RM Rate & New Scrap Rate ──────────────────────── */
+.rmpEditableInput.sapMInput { background: transparent !important; }
+
+.rmpEditableInput.sapMInput .sapMInputBaseInner {
+  background: var(--blue-tint) !important;
+  border: 1.5px solid var(--blue-border) !important;
+  border-radius: var(--r-sm) !important;
+  font-family: var(--mono) !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: var(--blue) !important;
+  text-align: right !important;
+  padding: 0 10px !important;
+  height: 32px !important;
+  font-variant-numeric: tabular-nums !important;
+  box-shadow: var(--sh-input) !important;
+  transition:
+    border-color var(--dur) var(--ease),
+    box-shadow   var(--dur) var(--ease),
+    background   var(--dur) var(--ease) !important;
+}
+.rmpEditableInput.sapMInput .sapMInputBaseInner:hover {
+  border-color: #90b8fc !important;
+  background: #e6f0ff !important;
+}
+.rmpEditableInput.sapMInput.sapMInputFocused .sapMInputBaseInner,
+.rmpEditableInput.sapMInput .sapMInputBaseInner:focus {
+  border-color: var(--blue) !important;
+  box-shadow: var(--sh-focus) !important;
+  background: #fff !important;
+  color: var(--blue-dark) !important;
+  outline: none !important;
+}
+
+/* ─── Charges Section Header ──────────────────────────────────────────────── */
+.sapMPanel .sapMTB.sapUiTinyMarginTop {
+  background: var(--toolbar-bg) !important;
+  border-top: 2px solid var(--border) !important;
+  border-bottom: 1px solid var(--border) !important;
+  padding: 0 20px !important;
+  min-height: 44px !important;
+}
+.sapMPanel .sapMTB.sapUiTinyMarginTop .sapMTitle {
+  font-family: var(--sans) !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.1em !important;
+  color: var(--tx-3) !important;
+}
+
+/* ─── Charges sap.m.Table ─────────────────────────────────────────────────── */
+.sapUiSizeCompact .sapMListTbl { font-family: var(--sans) !important; }
+
+.sapUiSizeCompact .sapMListTblHeaderCell {
+  background: var(--card) !important;
+  border-bottom: 2px solid var(--border) !important;
+  padding: 9px 16px !important;
+}
+.sapUiSizeCompact .sapMListTblHeaderCell .sapMLabel {
+  font-family: var(--sans) !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  color: var(--tx-3) !important;
+}
+.sapUiSizeCompact .sapMLIBFocusable {
+  border-bottom: 1px solid var(--border) !important;
+  transition: background var(--dur) var(--ease) !important;
+}
+.sapUiSizeCompact .sapMLIBFocusable:hover { background: var(--blue-tint) !important; }
+
+.sapUiSizeCompact .sapMListTblCell { padding: 10px 16px !important; vertical-align: middle !important; }
+
+.sapUiSizeCompact .sapMListTblCell .sapMText {
+  font-family: var(--sans) !important;
+  font-size: 13.5px !important;
+  font-weight: 500 !important;
+  color: var(--tx-1) !important;
+}
+.sapUiSizeCompact .sapMListTblCell .sapMObjectNumber,
+.sapUiSizeCompact .sapMListTblCell .sapMObjectNumberText {
+  font-family: var(--mono) !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: var(--tx-1) !important;
+  font-variant-numeric: tabular-nums !important;
+}
+.sapUiSizeCompact .sapMListTblCell .sapUiTinyMarginBegin {
+  font-family: var(--sans) !important;
+  font-size: 12px !important;
+  color: var(--tx-3) !important;
+}
+
+
+/* ─── MessageStrip ────────────────────────────────────────────────────────── */
+.sapMMessageStrip {
+  border-radius: var(--r-md) !important;
+  border: none !important;
+  background: var(--blue-tint) !important;
+  box-shadow: 0 0 0 1px var(--blue-border) !important;
+}
+.sapMMessageStripMessage {
+  font-family: var(--mono) !important;
+  font-size: 12.5px !important;
+  font-weight: 500 !important;
+  color: var(--blue-dark) !important;
+}
+
+/* ─── Footer ──────────────────────────────────────────────────────────────── */
+.sapMPageFooter .sapMBar {
+  background: rgba(15, 17, 22, 0.95) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border-top: 1px solid rgba(255,255,255,0.08) !important;
+  box-shadow: 0 -8px 32px rgba(0,0,0,0.12) !important;
+  height: 58px !important;
+}
+
+.sapMPageFooter .sapMLabel {
+  font-family: var(--sans) !important;
+  font-size: 9px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.12em !important;
+  color: rgba(255,255,255,0.3) !important;
+}
+
+.sapMPageFooter .sapMObjectNumber,
+.sapMPageFooter .sapMObjectNumberText {
+  font-family: var(--mono) !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.02em !important;
+  font-variant-numeric: tabular-nums !important;
+  color: rgba(255,255,255,0.9) !important;
+}
+
+/* Revised Part Price — electric blue glow */
+.sapMPageFooter .sapMObjectNumberStatusSuccess .sapMObjectNumberText {
+  color: #5ba8ff !important;
+  text-shadow: 0 0 18px rgba(91,168,255,0.5) !important;
+}
+.sapMPageFooter .sapMObjectNumberStatusError .sapMObjectNumberText {
+  color: #ff6b6b !important;
+}
+
+.sapMPageFooter .sapMBtn .sapMBtnEmphasized {
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.2) inset,
+    0 0 20px rgba(26,111,244,0.6) !important;
+}
+.sapMPageFooter .sapMBtn .sapMBtnTransparent {
+  background: rgba(255,255,255,0.08) !important;
+  border-color: rgba(255,255,255,0.15) !important;
+  color: rgba(255,255,255,0.65) !important;
+}
+.sapMPageFooter .sapMBtn .sapMBtnTransparent:hover {
+  background: rgba(255,255,255,0.13) !important;
+  color: #fff !important;
+}
+
+/* ─── Scrollbar ───────────────────────────────────────────────────────────── */
+::-webkit-scrollbar           { width: 4px; height: 4px; }
+::-webkit-scrollbar-track     { background: transparent; }
+::-webkit-scrollbar-thumb     { background: var(--border-deep); border-radius: var(--r-pill); }
+::-webkit-scrollbar-thumb:hover { background: var(--tx-3); }
+
+/* ─── Selection ───────────────────────────────────────────────────────────── */
+::selection {
+  background: rgba(26,111,244,0.15);
+  color: var(--blue-dark);
+}

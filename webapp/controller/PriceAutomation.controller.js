@@ -120,7 +120,6 @@ sap.ui.define([
                 const fDeltaScrap = parseFloat(
                     Math.abs((rm.newScrapRate || 0) - (rm.currentScrapRate || 0)).toFixed(4)
                 );
-
                 return {
                     rmCode: rm.rmCode,
                     rmName: rm.rmName,
@@ -166,9 +165,9 @@ sap.ui.define([
             const sPath = oContext.getPath();
             const oModel = this.getView().getModel("view");
 
-            const fNew = parseFloat(oInput.getValue()) || 0;
-            const fCurrent = parseFloat(oModel.getProperty(sPath + "/currentRmRate")) || 0;
-            const fDelta = parseFloat((fNew - fCurrent).toFixed(4));
+            const fNew = Math.abs(parseFloat(oInput.getValue()) || 0);
+            const fCurrent = Math.abs(parseFloat(oModel.getProperty(sPath + "/currentRmRate")) || 0);
+            const fDelta = Math.abs(parseFloat((fNew - fCurrent).toFixed(4)));
 
             oModel.setProperty(sPath + "/newRmRate", fNew);
             oModel.setProperty(sPath + "/deltaContentRate", fDelta);
@@ -183,9 +182,9 @@ sap.ui.define([
             const sPath = oContext.getPath();
             const oModel = this.getView().getModel("view");
 
-            const fNew = parseFloat(oInput.getValue()) || 0;
-            const fCurrent = parseFloat(oModel.getProperty(sPath + "/currentScrapRate")) || 0;
-            const fDelta = parseFloat((fNew - fCurrent).toFixed(4));
+            const fNew = Math.abs(parseFloat(oInput.getValue()) || 0);
+            const fCurrent = Math.abs(parseFloat(oModel.getProperty(sPath + "/currentScrapRate")) || 0);
+            const fDelta = Math.abs(parseFloat((fNew - fCurrent).toFixed(4)));
 
             oModel.setProperty(sPath + "/newScrapRate", fNew);
             oModel.setProperty(sPath + "/deltaScrapRate", fDelta);

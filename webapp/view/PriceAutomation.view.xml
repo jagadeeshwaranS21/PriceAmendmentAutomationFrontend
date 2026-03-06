@@ -11,6 +11,7 @@
         title="Raw Material Price Revision"
         showNavButton="false"
         backgroundDesign="Solid"
+        showHeader="false"
     >
         <customHeader>
             <Bar design="Header">
@@ -38,7 +39,6 @@
 
         <content>
             <VBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginTopBottom">
-                <!-- ═══ SINGLE PANEL ═══════════════════════════════════════════ -->
                 <Panel
                     expandable="false"
                     class="sapUiNoContentPadding"
@@ -104,7 +104,7 @@
                             <Text text="{view>/vendorData/currency_code}" />
                             <ToolbarSeparator />
                             <Label
-                                text="Curr. Rate:"
+                                text="Current Rate:"
                                 design="Bold"
                                 class="sapUiTinyMarginEnd"
                             />
@@ -127,7 +127,11 @@
                                 width="80px"
                                 class="rmpEditableInput"
                             />
-
+                            <Label
+                                text="Content:"
+                                design="Bold"
+                                class="sapUiTinyMarginEnd"
+                            />
                             <ObjectNumber
                                 number="{path: 'view>/currency/deltaRate', formatter: '.formatter.formatDecimal'}"
                                 state="{path: 'view>/currency/deltaRate', formatter: '.formatter.formatDeltaState'}"
@@ -142,6 +146,7 @@
                         selectionMode="None"
                         alternateRowColors="true"
                         columnHeaderHeight="32"
+                        visibleRowCount="5"
                     >
                         <t:extension>
                             <OverflowToolbar
@@ -157,7 +162,7 @@
                         </t:extension>
 
                         <t:columns>
-                            <t:Column width="100%">
+                            <t:Column>
                                 <Label text="RM Code" />
                                 <t:template>
                                     <Text
@@ -202,7 +207,7 @@
                                         valueLiveUpdate="true"
                                         liveChange=".onRmRateChange"
                                         class="rmpEditableInput"
-                                        width="100px"
+                                        width="60px"
                                     />
                                 </t:template>
                             </t:Column>
@@ -215,7 +220,7 @@
                                 <t:template>
                                     <ObjectNumber
                                         number="{path: 'view>deltaContentRate', formatter: '.formatter.formatDecimal'}"
-                                        state="{path: 'view>deltaContentRate', formatter: '.formatter.formatDeltaState'}"
+                                        state="Error"
                                     />
                                 </t:template>
                             </t:Column>
@@ -245,7 +250,7 @@
                                         valueLiveUpdate="true"
                                         liveChange=".onScrapRateChange"
                                         class="rmpEditableInput"
-                                        width="100px"
+                                        width="60px"
                                     />
                                 </t:template>
                             </t:Column>
@@ -258,7 +263,7 @@
                                 <t:template>
                                     <ObjectNumber
                                         number="{path: 'view>deltaScrapRate', formatter: '.formatter.formatDecimal'}"
-                                        state="{path: 'view>deltaScrapRate', formatter: '.formatter.formatDeltaState'}"
+                                        state="Error"
                                     />
                                 </t:template>
                             </t:Column>
@@ -279,7 +284,6 @@
                         </t:columns>
                     </t:Table>
 
-                    <!-- ── Charges Row ─────────────────────────────────────── -->
                     <OverflowToolbar
                         style="Clear"
                         height="2rem"
@@ -343,26 +347,8 @@
                         </items>
                     </Table>
                 </Panel>
-                <!-- ═══ END SINGLE PANEL ══════════════════════════════════════ -->
+
             </VBox>
         </content>
-
-        <footer>
-            <Bar design="Footer">
-                <contentRight>
-                    <Button
-                        text="Reset"
-                        type="Transparent"
-                        press=".onReset"
-                    />
-                    <Button
-                        text="Save"
-                        type="Emphasized"
-                        icon="sap-icon://save"
-                        press=".onSave"
-                    />
-                </contentRight>
-            </Bar>
-        </footer>
     </Page>
 </mvc:View>

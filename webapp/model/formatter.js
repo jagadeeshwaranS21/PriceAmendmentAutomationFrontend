@@ -11,9 +11,10 @@ sap.ui.define([], function () {
         },
 
         formatDeltaState: function (fValue) {
-            const f = parseFloat(fValue);
-            if (isNaN(f) || f === 0) { return "None"; }
-            return f > 0 ? "Error" : "Success";
+            // const f = parseFloat(fValue);
+            // if (isNaN(f) || f === 0) { return "None"; }
+            // return f > 0 ? "Error" : "Success";
+            return "Success"
         },
 
         formatRate: function (fValue) {
